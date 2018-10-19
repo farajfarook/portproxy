@@ -6,6 +6,8 @@ script:
   - env GOOS=darwin GOARCH=amd64 go build -o portproxy && zip darwin-64bit.zip portproxy && rm portproxy
   - env GOOS=linux GOARCH=386 go build -o portproxy && zip linux-32bit.zip portproxy && rm portproxy
   - env GOOS=linux GOARCH=amd64 go build -o portproxy && zip linux-64bit.zip portproxy && rm portproxy
+  - GOOS=windows go get -u github.com/spf13/cobra
+  - GOOS=windows go get -u github.com/sirupsen/logrus
   - env GOOS=windows GOARCH=386 go build -o portproxy.exe && zip windows-32bit.zip portproxy && rm portproxy.exe
   - env GOOS=windows GOARCH=amd64 go build -o portproxy.exe && zip windows-64bit.zip portproxy && rm portproxy.exe
 
