@@ -8,8 +8,8 @@ script:
   - env GOOS=linux GOARCH=amd64 go build -o portproxy && zip linux-64bit.zip portproxy && rm portproxy
   - GOOS=windows go get -u github.com/spf13/cobra
   - GOOS=windows go get -u github.com/sirupsen/logrus
-  - env GOOS=windows GOARCH=386 go build -o portproxy.exe && zip windows-32bit.zip portproxy && rm portproxy.exe
-  - env GOOS=windows GOARCH=amd64 go build -o portproxy.exe && zip windows-64bit.zip portproxy && rm portproxy.exe
+  - env GOOS=windows GOARCH=386 go build -o portproxy.exe && zip windows-32bit.zip portproxy.exe && rm portproxy.exe
+  - env GOOS=windows GOARCH=amd64 go build -o portproxy.exe && zip windows-64bit.zip portproxy.exe && rm portproxy.exe
 
 deploy:
   provider: releases
