@@ -2,6 +2,8 @@
 
 A Fast and Simple util tool to tunnel the local TCP or UDP port to another port. 
 
+[![Build Status](https://travis-ci.org/enbiso/portproxy.svg?branch=master)](https://travis-ci.org/enbiso/portproxy)
+
 ## Examples
 
 Simple example of tunnel port 80 to port 8080 locally
