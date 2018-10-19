@@ -3,4 +3,21 @@ git:
   depth: 1
 
 script:
-  - go build
+  - env GOOS=darwin GOARCH=amd64 go build -o portproxy && zip darwin-64bit.zip portproxy && rm portproxy
+  - env GOOS=linux GOARCH=386 go build -o portproxy && zip linux-32bit.zip portproxy && rm portproxy
+  - env GOOS=linux GOARCH=amd64 go build -o portproxy && zip linux-64bit.zip portproxy && rm portproxy
+  - env GOOS=windows GOARCH=386 go build -o portproxy.exe && zip windows-32bit.zip portproxy && rm portproxy.exe
+  - env GOOS=windows GOARCH=amd64 go build -o portproxy.exe && zip windows-64bit.zip portproxy && rm portproxy.exe
+
+deploy:
+  provider: releases
+  api_key: "$GITHUB_TOKEN"
+  file: 
+  - ./darwin-64bit.zip
+  - ./linux-32bit.zip
+  - ./linux-64bit.zip
+  - ./windows-32bit.zip
+  - ./windows-64bit.zip
+  skip_cleanup: true
+  on:
+    tags: true
