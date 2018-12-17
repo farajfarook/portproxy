@@ -41,8 +41,10 @@ func main() {
 	proxyCmd.PersistentFlags().StringP("dest", "d", "", "Destination Address (0.0.0.0:8080)")
 	proxyCmd.MarkPersistentFlagRequired("dest")
 	proxyCmd.PersistentFlags().StringP("protocol", "p", "tcp", "Protocol (TCP/UDP)")
+	viper.AutomaticEnv()
 	viper.BindPFlag("source", proxyCmd.PersistentFlags().Lookup("source"))
 	viper.BindPFlag("dest", proxyCmd.PersistentFlags().Lookup("dest"))
+	viper.BindPFlag("protocol", proxyCmd.PersistentFlags().Lookup("protocol"))
 
 	proxyCmd.AddCommand(versionCmd)
 

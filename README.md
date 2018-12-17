@@ -20,3 +20,19 @@ Tunnel UDP traffic in port 6000 to 8000
 ```
 portproxy --source 127.0.0.1:6000 --dest :8000 --protocol udp
 ```
+
+
+## Docker
+
+```
+docker run \
+    -e SOURCE=127.0.0.1:6000 -e DEST=:8000 -e PROTOCOL=udp \
+    -p 8000:8000/udp \
+    enbiso/portproxy
+```
+or
+```
+docker run -p 8000:8000/udp \
+    enbiso/portproxy \
+    --source 127.0.0.1:6000 --dest :8000 --protocol udp
+```
