@@ -8,4 +8,3 @@ FROM scratch
 WORKDIR /app
 COPY --from=builder /go/src/portproxy/portproxy .
 ENTRYPOINT [ "/app/portproxy" ]
-CMD [ "--source", "${PP_SOURCE}", "--target", "${PP_TARGET}", "--protocol", "${PP_PROTOCOL}" ]

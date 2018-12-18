@@ -25,13 +25,6 @@ portproxy --source 172.10.20.0:6000 --target :8000 --protocol udp
 ## Docker
 
 ```
-docker run \
-    -e PP_SOURCE=127.0.0.1:6000 -e PP_TARGET=:8000 -e PP_PROTOCOL=udp \
-    -p 8000:8000/udp \
-    enbiso/portproxy
-```
-or
-```
 docker run -p 8000:8000/udp \
     enbiso/portproxy \
     --source 127.0.0.1:6000 --target :8000 --protocol udp
