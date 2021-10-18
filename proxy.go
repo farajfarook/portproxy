@@ -40,11 +40,54 @@ func proxy(source string, target string, proto string) {
 	log.Info("Source   - " + source)
 	log.Info("Target   - " + target)
 	log.Info("Protocol - " + proto)
-	ln, err := net.Listen(proto, target)
+
+	if proto == "udp" || proto == "*" {
+		protocolUDPProxy("udp", target, source)
+	}
+
+	if proto == "tcp" || proto == "*" {
+		protocolTCPProxy("tcp", target, source)
+	}
+
+}
+
+func protocolUDPProxy(proto string, target string, source string) {
+	ln, err := net.ListenPacket(proto, target)
 	if err != nil {
 		log.Fatal(err)
 	}
-	// accept connection on port
+	defer ln.Close()
+
+	for {
+		go func() {
+			buf := make([]byte, 1024)
+			clientConn, err := net.Dial(proto, source)
+			if err != nil {
+				log.Error(err)
+				clientConn.Close()
+				return
+			}
+			_, err = clientConn.Read(buf)
+			if err != nil {
+				ln.Close()
+				log.Error(err)
+				return
+			}
+
+			ln.WriteTo(buf, &net.IPAddr{IP: net.IP(target)})
+
+		}()
+	}
+
+}
+
+func protocolTCPProxy(proto string, target string, source string) {
+	ln, err := net.Listen(proto, target)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	for {
 		conn, _ := ln.Accept()
 		go func() {
